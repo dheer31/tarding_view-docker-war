@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradingView Clone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo-section">
+      <svg class="logo-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 0C6.268 0 0 6.268 0 14s6.268 14 14 14 14-6.268 14-14S21.732 0 14 0z" fill="#000" />
+        <path d="M9 9h3v10H9V9zm7 4h3v6h-3v-6z" fill="#fff" />
+      </svg>
+      <div class="logo">TradingView</div>
+    </div>
+    <div class="search-wrapper">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <span>Search (e.g. AAPL)</span>
+    </div>
+    <div class="nav-right">
+      <button class="btn">Products</button>
+      <button class="btn">Community</button>
+      <button class="btn">Markets</button>
+      <button class="btn">News</button>
+      <button class="btn btn-primary">Get Started</button>
+      <div class="avatar">U</div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <main class="chart-area">
+      <div class="chart-toolbar">
+        <div class="ticker-info">
+          <span class="ticker-name">AAPL</span>
+          <span class="ticker-price price-up">150.25</span>
+          <span class="price-change price-up">+1.50 (+1.01%)</span>
+        </div>
+        <div style="flex: 1;"></div>
+        <button class="btn">1D</button>
+        <button class="btn">5D</button>
+        <button class="btn">1M</button>
+        <button class="btn">Indicators</button>
+      </div>
+      <div class="chart-placeholder">
+        <div class="candlestick-simulation" id="chart-candles">
+          <!-- Candles will be injected by JS or hardcoded here for initial look -->
+          <!-- Hardcoding a few for immediate visual -->
+          <div class="candle red" style="height: 40px; margin-bottom: 20px;"></div>
+          <div class="candle" style="height: 60px; margin-bottom: 30px;"></div>
+          <div class="candle red" style="height: 30px; margin-bottom: 40px;"></div>
+          <div class="candle" style="height: 80px; margin-bottom: 10px;"></div>
+          <div class="candle" style="height: 50px; margin-bottom: 50px;"></div>
+          <div class="candle red" style="height: 40px; margin-bottom: 30px;"></div>
+          <div class="candle" style="height: 70px; margin-bottom: 20px;"></div>
+          <div class="candle" style="height: 90px; margin-bottom: 60px;"></div>
+        </div>
+        <div style="position: absolute; font-size: 24px; font-weight: 700; color: var(--bg-hover); z-index: 0;">
+          Interactive Chart Placeholder</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar-tabs">
+        <div class="tab active">Watchlist</div>
+        <div class="tab">Details</div>
+        <div class="tab">News</div>
+      </div>
+      <div class="watchlist" id="watchlist">
+        <!-- Watchlist items -->
+        <div class="watchlist-item">
+          <div class="item-left">
+            <span class="symbol">AAPL</span>
+            <span class="company">Apple Inc</span>
+          </div>
+          <div class="item-right">
+            <span class="price">150.25</span>
+            <span class="change price-up">+1.01%</span>
+          </div>
+        </div>
+        <div class="watchlist-item">
+          <div class="item-left">
+            <span class="symbol">TSLA</span>
+            <span class="company">Tesla, Inc</span>
+          </div>
+          <div class="item-right">
+            <span class="price">245.60</span>
+            <span class="change price-down">-0.50%</span>
+          </div>
+        </div>
+        <div class="watchlist-item">
+          <div class="item-left">
+            <span class="symbol">NVDA</span>
+            <span class="company">NVIDIA</span>
+          </div>
+          <div class="item-right">
+            <span class="price">460.15</span>
+            <span class="change price-up">+2.30%</span>
+          </div>
+        </div>
+        <div class="watchlist-item">
+          <div class="item-left">
+            <span class="symbol">AMD</span>
+            <span class="company">AMD Inc</span>
+          </div>
+          <div class="item-right">
+            <span class="price">110.45</span>
+            <span class="change price-up">+0.80%</span>
+          </div>
+        </div>
+        <div class="watchlist-item">
+          <div class="item-left">
+            <span class="symbol">AMZN</span>
+            <span class="company">Amazon.com</span>
+          </div>
+          <div class="item-right">
+            <span class="price">135.20</span>
+            <span class="change price-down">-1.20%</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

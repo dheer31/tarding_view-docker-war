@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         string(
-            name: 'dhee31',
+            name: 'DOCKERHUB_USERNAME',
             defaultValue: 'dhee31',
             description: 'Docker Hub Username'
         )
@@ -16,7 +16,6 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}"
         CONTAINER_NAME = "webapp-container"
         HOST_PORT = "8085"
         CONTAINER_PORT = "8080"
@@ -32,7 +31,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME}:latest ."
+                sh """
+                    docker build -t ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:latest .
+                """
             }
         }
 
@@ -45,14 +46,18 @@ pipeline {
                     docker run -d \
                         --name ${CONTAINER_NAME} \
                         -p ${HOST_PORT}:${CONTAINER_PORT} \
-                        ${IMAGE_NAME}:latest
+                        ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:latest
                 """
             }
         }
 
         stage('Tag Docker Image') {
             steps {
-                sh "docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh """
+                    docker tag \
+                    ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:latest \
+                    ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:${BUILD_NUMBER}
+                """
             }
         }
 
@@ -75,8 +80,8 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 sh """
-                    docker push ${IMAGE_NAME}:latest
-                    docker push ${IMAGE_NAME}:${BUILD_NUMBER}
+                    docker push ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:latest
+                    docker push ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:${BUILD_NUMBER}
                 """
             }
         }
@@ -84,8 +89,8 @@ pipeline {
         stage('Cleanup') {
             steps {
                 sh """
-                    docker rmi ${IMAGE_NAME}:latest || true
-                    docker rmi ${IMAGE_NAME}:${BUILD_NUMBER} || true
+                    docker rmi ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:latest || true
+                    docker rmi ${params.DOCKERHUB_USERNAME}/${params.DOCKERHUB_REPO}:${BUILD_NUMBER} || true
                     docker image prune -f
                     docker logout
                 """
@@ -95,7 +100,7 @@ pipeline {
 
     post {
         success {
-            echo "Docker image built, container started on port 8085, and pushed successfully!"
+            echo "Docker image built, container started, and pushed successfully!"
         }
 
         failure {
